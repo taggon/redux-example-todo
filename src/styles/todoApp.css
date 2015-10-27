@@ -1,0 +1,24 @@
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li input[type="checkbox"] {
+  margin-right: 1em;
+}
+
+.todo-list li.completed label {
+  text-decoration: line-through;
+}
+
+button.destroy {
+  background:transparent;
+  border:0;
+  margin-left:2em;
+  font-weight:bold;
+  color:#f00;
+}
+
+button.destroy::before {
+  content: 'X';
+}
