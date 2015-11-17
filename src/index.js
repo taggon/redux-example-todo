@@ -5,6 +5,6 @@ import TodoApp from './components/TodoApp';
 import './styles/todoApp.css';
 
 render(
-  <TodoApp />,
+  <TodoApp state={window.__INITIAL_STATE__} />,
   document.getElementById('app')
 );

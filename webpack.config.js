@@ -1,34 +1,38 @@
 var path = require('path');
 var webpack = require('webpack');
 
-module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  entry: [
-    './src/index'
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
+var output = {
+  path: path.join(__dirname, 'dist'),
+  publicPath: '/dist/'
+}
+
+var commonLoaders = [
+  { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
+  { test: /\.css$/,  loader: 'style!raw' }
+];
+
+module.exports = [
+  {
+    name: 'browser',
+    entry: './src/index.js',
+    output: Object.assign({}, output, {filename: 'bundle.js'}),
+    module: {
+      loaders: commonLoaders
+    },
+    plugins: [
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
+    ],
+    devtool: 'cheap-module-eval-source-map',
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
-  module: {
-    loaders: [
-      {
-	test: /\.js$/,
-	loaders: ['babel'],
-	exclude: /node_modules/,
-	include: __dirname
-      },
-      {
-      test: /\.css?$/,
-      loaders: ['style', 'raw'],
-      include: __dirname
-      }
-    ]
+  {
+    name: 'server',
+    entry: './src/page.js',
+    target: 'node',
+    output: Object.assign({}, output, {filename: 'page.js', libraryTarget: 'commonjs2'}),
+    module: {
+      loaders: commonLoaders
+    }
   }
-};
+];
