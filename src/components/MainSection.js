@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
-import Footer from './Footer';
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 
 const TODO_FILTERS = {
