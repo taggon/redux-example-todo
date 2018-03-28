@@ -10,6 +10,10 @@ var actions = bindActionCreators(TodoActions, todoStore.dispatch);
 class TodoApp extends Component {
   constructor(props, context) {
     super(props, context);
+
+    // 초기 상태를 업데이트한다.
+    actions.initTodo(props.state);
+
     todoStore.subscribe(this._onChange.bind(this));
   }
 
